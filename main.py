@@ -217,41 +217,41 @@ They {endtext}{text}""")
                 "You already have an ongoing game, if this is false, please contact an admin to restart the bot to fix the issue")
     except:
         pass
-      with open("lvl.ca") as levelpre:
-          level = eval(levelpre.read())
-          if msg.content.removeprefix(prefix) == "profile":
-              await msg.channel.send(f"""{msg.author.display_name} (ID: {msg.author.id}),
+    with open("lvl.ca") as levelpre:
+        level = eval(levelpre.read())
+        if msg.content.removeprefix(prefix) == "profile":
+            await msg.channel.send(f"""{msg.author.display_name} (ID: {msg.author.id}),
           > Level: {level[msg.author.id]["lvl"]}
           > XP: {level[msg.author.id]["xp"]} (from {level[msg.author.id]["xp"] / 10} messages)
           > You need {(level[msg.author.id]["lvl"] * (level[msg.author.id]["lvl"] + 1) / 2) * 100}xp to advance to level {level[msg.author.id]["lvl"] + 1} ({((level[msg.author.id]["lvl"] * (level[msg.author.id]["lvl"] + 1) / 2) * 100) - level[msg.author.id]["lvl"]}xp Left)""")
-        
-          if msg.channel.id != 1119527152807858246 and msg.author.id not in cooldown:
-              cooldown += [msg.author.id]
-              if msg.author.id not in level:
-                  level[msg.author.id] = {"xp": 0, "lvl": 1}
-              level[msg.author.id]["xp"] += 10
-              if level[msg.author.id]["xp"] >= (
-                      level[msg.author.id]["lvl"] * (level[msg.author.id]["lvl"] + 1) / 2) * 100:
-                  level[msg.author.id]["lvl"] += 1
-                  preid = msg.channel.id
-                  msg.channel.id = 1126477320014811206
-                  await msg.channel.send(
-                      f"""{msg.author.display_name} You have advanced to Level {level[msg.author.id]["lvl"]}
+
+        if msg.channel.id != 1119527152807858246 and msg.author.id not in cooldown:
+            cooldown += [msg.author.id]
+            if msg.author.id not in level:
+                level[msg.author.id] = {"xp": 0, "lvl": 1}
+            level[msg.author.id]["xp"] += 10
+            if level[msg.author.id]["xp"] >= (
+                    level[msg.author.id]["lvl"] * (level[msg.author.id]["lvl"] + 1) / 2) * 100:
+                level[msg.author.id]["lvl"] += 1
+                preid = msg.channel.id
+                msg.channel.id = 1126477320014811206
+                await msg.channel.send(
+                    f"""{msg.author.display_name} You have advanced to Level {level[msg.author.id]["lvl"]}
 You need {(level[msg.author.id]["lvl"] * (level[msg.author.id]["lvl"] + 1) / 2) * 100}xp to advance to level {level[msg.author.id]["lvl"] + 1} ({((level[msg.author.id]["lvl"] * (level[msg.author.id]["lvl"] + 1) / 2) * 100) - level[msg.author.id]["lvl"]}xp Left)""")
-                  msg.channel.id = preid
-        
-              if level[msg.author.id]["lvl"] >= 5:
-                  await msg.author.add_roles(dis.utils.get(msg.guild.roles, id=1126140699578998794))
-              if level[msg.author.id]["lvl"] >= 15:
-                  await msg.author.add_roles(dis.utils.get(msg.guild.roles, id=1126152109390319687))
-              if level[msg.author.id]["lvl"] >= 30:
-                  await msg.author.add_roles(dis.utils.get(msg.guild.roles, id=1126145789538865213))
-              if level[msg.author.id]["lvl"] >= 50:
-                  await msg.author.add_roles(dis.utils.get(msg.guild.roles, id=1126153339583864842))
-              open("lvl.ca", 'w').write(f"{level}")
-        
-              await sleep(10)
-              cooldown.remove(msg.author.id)
+                msg.channel.id = preid
+
+            if level[msg.author.id]["lvl"] >= 5:
+                await msg.author.add_roles(dis.utils.get(msg.guild.roles, id=1126140699578998794))
+            if level[msg.author.id]["lvl"] >= 15:
+                await msg.author.add_roles(dis.utils.get(msg.guild.roles, id=1126152109390319687))
+            if level[msg.author.id]["lvl"] >= 30:
+                await msg.author.add_roles(dis.utils.get(msg.guild.roles, id=1126145789538865213))
+            if level[msg.author.id]["lvl"] >= 50:
+                await msg.author.add_roles(dis.utils.get(msg.guild.roles, id=1126153339583864842))
+            open("lvl.ca", 'w').write(f"{level}")
+
+            await sleep(10)
+            cooldown.remove(msg.author.id)
 
 
 client.run(token)
