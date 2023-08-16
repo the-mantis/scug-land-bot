@@ -91,7 +91,7 @@ They {endtext}{text}""")
         except:
             pass
 
-     try:
+    try:
         if (msg.content.removeprefix(prefix) == "smashorpass" and msg.author.id not in sopids):
             sopfile = open("sop.ca").readlines()
             sopsplit = []
